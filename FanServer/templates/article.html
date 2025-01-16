@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Article
+{% endblock title %}
+
+{% block content %}
+
+      <table border="0" width="100%">
+         <tr>
+            <td><h5>Заголовок</h5></td>
+            <td><h5>Текс объявления</h5></td>
+            <td><h5>Категория</h5></td>
+            <td><h5>Автор</h5></td>
+            <td><h5>Дата публикации</h5></td>
+         </tr>
+         <tr>
+            <td>{{ article.title }}</td>
+            <td>{{ article.text }} <img src="{{ article.upload.url }}" width="200px"></td>
+            <td>{{ article.category }}</td>
+            <td>{{ article.author }}</td>
+            <td>{{ article.article_time|date:'d M Y' }}</td>
+         </tr>
+      </table>
+
+            {% if perms.articles.change_post %}
+            <a  href="{% url 'article_update' pk=article.id %}"> Изменить </a>
+            {% endif %}
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            {% if perms.articles.delete_post %}
+            <a href="{% url 'article_delete' pk=article.id %}"> Удалить </a>
+            {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+            <input type="submit" value="Добавить отклик">
+    </form>
+
+    {% if article.userresponse_set.all %}
+        <h2>Все отклики на объявление: </h2>
+        {% for ar in article.userresponse_set.all %}
+            <p>Отклик: {{ ar.text }}</p>
+        {% endfor %}
+    {% endif %}
+
+{% endblock content %}
