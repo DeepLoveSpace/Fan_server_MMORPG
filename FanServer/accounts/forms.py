@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from allauth.account.forms import SignupForm
-from django.contrib.auth.models import Group
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 
 
 class SignUpForm(UserCreationForm):
