@@ -46,34 +46,6 @@
 
                {% endif %}}
 
-
-       {% if user.is_authenticated %}
-<div class="dropdown">
-<button class="btn btn-primary my-btn dropdown-toggle me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false"> {{ request.user }}
-</button>
-<ul class="dropdown-menu dd-color">
-<li><a class ="dropdown-item dd-item-color" href="/logout">Выйти</a></li>
-</ul>
-</div>
-{% else %}
-<li class="nav-item">
-<a class="nav-link btn btn-primary my-btn me-3" href="/accounts/login">Войти</a>
-</li>
-{% endif %}
-
-
-
-
-               <li class="nav-item active">
-                   <a class="nav-link" href="/accounts/login">Войти
-                   </a>
-               </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="/about/">About</a> сюда можно будет добавить ссылки меню
-               </li>
-               <li class="nav-item">
-                   <a class="nav-link" href="/contacts/">Contact</a>
-               </li>
            </ul>
        </div>
    </div>
