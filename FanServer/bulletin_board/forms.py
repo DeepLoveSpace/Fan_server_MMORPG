@@ -9,10 +9,10 @@ from string import hexdigits
 import random
 
 
-
 class ArticleForm(forms.ModelForm):
     title = forms.CharField(min_length=1)
     text = forms.CharField(min_length=1)
+
     class Meta:
         model = Article
         fields = ['title', 'text', 'category', 'upload']

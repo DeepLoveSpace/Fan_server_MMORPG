@@ -12,6 +12,7 @@ from .models import Article, Category, Subscription
 from datetime import datetime
 from .filters import ArticleFilter
 
+
 class ArticleList(ListView):
     model = Article
     ordering = 'article_time'
@@ -36,7 +37,7 @@ class ArticleDetail(LoginRequiredMixin, DetailView):
     template_name = 'article.html'
     context_object_name = 'article'
 
-    def post(self, request, *args, **kwargs):
+    def post(self):
         article = self.get_object()
         if self.request.method == 'POST':
             form = UserResponseForm(self.request.POST)
@@ -59,7 +60,6 @@ class ArticleCreate(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
     model = Article
     template_name = 'article_create.html'
-
 
     def form_valid(self, form):
         article = form.save(commit=False)
@@ -111,6 +111,7 @@ def subscriptions(request):
         'subscriptions.html',
         {'categories': categories_with_subscriptions},
     )
+
 
 class ConfirmUser(UpdateView):
     model = User

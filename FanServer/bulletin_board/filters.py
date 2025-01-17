@@ -10,7 +10,6 @@ class ArticleFilter(FilterSet):
         empty_label='все категории',
     )
 
-
     class Meta:
         model = Article
         fields = {

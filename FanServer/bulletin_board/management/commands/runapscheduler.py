@@ -1,18 +1,15 @@
 import datetime
 import logging
-
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django.conf import settings
 from django.core.mail import mail_managers, EmailMultiAlternatives
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
-
 from django.utils import timezone
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
-
-from bulletin_board.models import Post, Category
+from FanServer.bulletin_board.models import Article, Category
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +39,6 @@ def my_job():
 
     msg.attach_alternative(html_content, 'text/html')
     msg.send()
-
 
 
 def delete_old_job_executions(max_age=604_800):
