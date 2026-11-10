@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Мои отклики</h1>
+
+    <!-- Фильтр по объявлению -->
+    <form method="get">
+        <label>Фильтр по объявлению:</label>
+        <select name="article">
+            <option value="">Все объявления</option>
+            {% for article in user_articles %}
+                <option value="{{ article.id }}">{{ article.title }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Применить</button>
+    </form>
+    <hr>
+
+    {% for response in responses %}
+        <div class="card">
+            <h4>На объявление: <a href="{% url 'article_detail' response.article.id %}">{{ response.article.title }}</a></h4>
+            <p>От: {{ response.author.email }}</p>
+            <p>Текст: {{ response.text }}</p>
+            <p>Статус: 
+                {% if response.status %}
+                    <span style="color: green;">Принят</span>
+                {% else %}
+                    <span style="color: orange;">В ожидании</span>
+                {% endif %}
+            </p>
+            <div>
+                {% if not response.status %}
+                    <a href="{% url 'accept_response' response.id %}" class="btn-success">Принять</a>
+                {% endif %}
+                <a href="{% url 'delete_response' response.id %}" class="btn-danger">Удалить</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>У вас пока нет откликов.</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p><strong>Категория:</strong> {{ object.category.name }}</p>
+    <p><strong>Автор:</strong> {{ object.author.email }}</p>
+    <p><strong>Дата:</strong> {{ object.article_time|date:"d.m.Y H:i" }}</p>
+    
+    <hr>
+    <h3>Текст объявления:</h3>
+    <!-- |safe позволяет выводить HTML из WYSIWYG редактора (картинки, видео) -->
+    <div>{{ object.text|safe }}</div>
+
+    {% if user.is_authenticated %}
+        {% if user != object.author %}
+            <hr>
+            <h3>Оставить отклик</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Отправить</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p><a href="{% url 'account_login' %}">Войдите</a>, чтобы оставить отклик.</p>
+    {% endif %}
+
+    <hr>
+    <h3>Отклики:</h3>
+    {% for response in responses %}
+        <div class="card">
+            <p><strong>{{ response.author.email }}</strong> пишет:</p>
+            <p>{{ response.text }}</p>
+            {% if response.status %}
+                <span style="color: green;">✔ Принят</span>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Откликов пока нет.</p>
+    {% endfor %}
+{% endblock %}

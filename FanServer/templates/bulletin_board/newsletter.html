@@ -1,0 +1,9 @@
+<h2>Новые объявления на нашем сервере за неделю!</h2>
+<ul>
+    {% for article in articles %}
+        <li>
+            <a href="{{ link }}/articles/{{ article.id }}/">{{ article.title }}</a> 
+            (Категория: {{ article.category.name }})
+        </li>
+    {% endfor %}
+</ul>

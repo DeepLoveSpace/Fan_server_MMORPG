@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Создание / Редактирование объявления</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Сохранить</button>
+        <a href="{% url 'article_list' %}">Отмена</a>
+    </form>
+    
+    <!-- Скрипт для активации CKEditor -->
+    <script>
+        CKEDITOR.replace('id_text');
+    </script>
+{% endblock %}
